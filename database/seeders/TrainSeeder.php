@@ -17,61 +17,21 @@ class TrainSeeder extends Seeder
     public function run(Faker $faker)
     {
         //
-        $trainList =[
-            [
-                'company' => 'Italo',
-                'depart_station' => 'Roma',
-                'depart_time' => '12:30',
-                'arrive_station' => 'Napoli',
-                'arrive_time' => '13:41',
-                'train_code' => 'IT854',
-                'q_wagons' => '8',
-                'delayed' => false,
-                'canceled' => false,
-            ],[
-                'company' => 'Trenitalia',
-                'depart_station' => 'Milano',
-                'depart_time' => '14:30',
-                'arrive_station' => 'Modena',
-                'arrive_time' => '15:21',
-                'train_code' => 'FR8954',
-                'q_wagons' => '8',
-                'delayed' => false,
-                'canceled' => false,
-            ],[
-                'company' => 'Trenitalia',
-                'depart_station' => 'Roma',
-                'depart_time' => '11:20',
-                'arrive_station' => 'Firenze',
-                'arrive_time' => '13:41',
-                'train_code' => 'FR9894',
-                'q_wagons' => '8',
-                'delayed' => false,
-                'canceled' => true,
-            ],[
-                'company' => 'Trenitalia',
-                'depart_station' => 'Torino',
-                'depart_time' => '12:30',
-                'arrive_station' => 'Como',
-                'arrive_time' => '13:41',
-                'train_code' => 'TN5423',
-                'q_wagons' => '8',
-                'delayed' => true,
-                'canceled' => false,
-            ],
-            ];
+        $companiesList=['Trenitalia','Trenord','Italo'];
+        $citiesList=['Roma','Bologna','Bari','Napoli','Milano','Firenze','Venezia'];
 
-        foreach ($trainList as $train) {
+
+        for ($i = 0; $i < 50 ; $i++) {
             $newTrain = new Train();
-            $newTrain->company = $train['company'];
-            $newTrain->depart_station = $train['depart_station'];
-            $newTrain->depart_time = $train['depart_time'];
-            $newTrain->arrive_station = $train['arrive_station'];
-            $newTrain->arrive_time = $train['arrive_time'];
-            $newTrain->train_code = $train['train_code'];
-            $newTrain->q_wagons = $train['q_wagons'];
-            $newTrain->delayed = $train['delayed'];
-            $newTrain->canceled = $train['canceled'];
+            $newTrain->company = $faker->randomElement($companiesList);
+            $newTrain->depart_station = $faker->randomElement($citiesList);
+            $newTrain->depart_time = $faker->dateTimeBetween('-1 week', '+1 week');
+            $newTrain->arrive_station = $faker->randomElement($citiesList);
+            $newTrain->arrive_time = $faker->dateTimeBetween('-1 week', '+1 week');
+            $newTrain->train_code = $faker->randomNumber(4, true);
+            $newTrain->q_wagons = $faker->randomDigitNotNull();
+            $newTrain->delayed = $faker->boolean();
+            $newTrain->canceled = $faker->boolean();
             $newTrain->save();
         }
     }

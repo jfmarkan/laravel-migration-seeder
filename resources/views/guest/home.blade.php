@@ -5,8 +5,25 @@
 @section('main-content')
     <div class="container my-5">
         <div class="row">
-            <div class="col">
-                <h1>MAIN</h1>
+            <div class="col-12 d-flex flex-wrap justify-content-between">
+            @foreach ($trainList as $train)
+                <div class="card col-3">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ $train->train_code }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ $train->company }}</h6>
+                    <p class="card-text">this train departs form <span class="fw-bold">{{ $train->depart_station }}</span> and arrives to <span class="fw-bold">{{$train->arrive_station}}</span></p>
+                    @if ($train->canceled === 0 && $train->delayed === 0)
+                    <div class="badge rounded-pill text-bg-success">On Time</div>
+                    @elseif ($train->canceled === 0 && $train->delayed === 1)
+                        <div class="badge rounded-pill text-bg-warning">Delayed</div>
+                    @endif
+                    @if ($train->canceled === 1)
+                    <div class="badge rounded-pill text-bg-danger">Cancelled</div>
+                        @endif
+                    <button class="btn btn-secondary mt-2">BUY TICKETS</button>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>
