@@ -26,6 +26,7 @@
                     </div>
                 <h6 class="card-subtitle mb-2 text-muted">{{ $train->company }}</h6>
                 <p class="card-text">this train departs form <span class="fw-bold">{{ $train->depart_station }}</span> and arrives to <span class="fw-bold">{{$train->arrive_station}}</span></p>
+                <p class="fw-semibold">Depart Time: <span class="fw-light">{{ $train->depart_time }}</span></p>
                 <button class="btn btn-secondary mt-2">BUY TICKETS</button>
                 </div>
             </div>
